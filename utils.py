@@ -33,3 +33,9 @@ def print_field(arr):
 
 def field_to_str(arr):
     return '\n'.join([''.join(['X' if cell else '.' for cell in row]) for row in arr])
+
+def check_add(field_id, piece_id):
+    return not (field_id & piece_id)
+
+def bitwise_add(field_id, piece_id):
+    return field_id | piece_id
