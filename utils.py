@@ -24,6 +24,12 @@ def rotate(arr):
 def flip(arr):
     return np.flip(arr, axis=0)
 
+def field_to_int64(arr):
+    return encode_nd_array_to_int64(arr)
+
 def print_field(arr):
     for row in arr:
         print(''.join(['X' if cell else '.' for cell in row]))
+
+def field_to_str(arr):
+    return '\n'.join([''.join(['X' if cell else '.' for cell in row]) for row in arr])
