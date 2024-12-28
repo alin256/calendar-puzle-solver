@@ -1,5 +1,7 @@
 import numpy as np
 
+import utils
+
 class Field:
     def __init__(self, rows=None, cols=None, init_grid=None):
         if cols is not None and rows is not None:
@@ -23,34 +25,12 @@ class Field:
         # return int(''.join([str(int(x)) for x in arr.flatten()]), 2)
         return Field.encode_nd_array_to_int64(self.grid)
 
-    @staticmethod
-    def encode_nd_array_to_int64(arr_in):
-        arr = np.full((8, 8), True, dtype=bool)
-        shape = arr_in.shape
-        arr[:shape[0], :shape[1]] = arr_in
-        return int(''.join([str(int(x)) for x in arr.flatten()]), 2)
 
-    @staticmethod
-    def decode_from_int64(num, num_rows=8, num_cols=8):
-        # todo stop assuming fixed size grid
-        bin_str = bin(num)[2:]
-        print(bin_str)
-        bin_str = '0' * (num_rows * num_cols - len(bin_str)) + bin_str
-        print(bin_str)
-        flat_array = np.array([int(x) for x in bin_str], dtype=bool)
-        print(flat_array)
-        print(flat_array.shape)
-        grid = flat_array.reshape(num_rows, num_cols)
-        return grid
 
     @staticmethod
     def decode_field_from_int64(num, num_rows=8, num_cols=8):
         grid = Field.decode_from_int64(num, num_rows, num_cols)
         return Field(init_grid=grid)
-
-    def print_field(self):
-        for row in self.grid:
-            print(' '.join(['#' if cell else '.' for cell in row]))
 
     def fill_cells(self, row, col, num_rows=1, num_cols=1):
         if num_rows is None and num_cols is None:
@@ -104,11 +84,7 @@ class Field:
                 return new_field
             self.rotate()
 
-    def rotate(self):
-        self.grid = np.rot90(self.grid)
 
-    def flip(self):
-        self.grid = np.flip(self.grid, axis=0)
 
     def __str__(self):
         return '\n'.join([' '.join(['X' if cell else '.' for cell in row]) for row in self.grid])
@@ -120,23 +96,6 @@ if __name__ == "__main__":
                              [True, False],
                              [True, False],
                              [True, False]])
-    ind = 0
-
-
-    for i in range(4):
-        print(ind)
-        print(field)
-        print()
-        field.rotate()
-        ind += 1
-    
-    field.flip()
-    for i in range(4):
-        print(ind)
-        print(field)
-        print()
-        field.rotate()
-        ind += 1
 
 
     exit()    
