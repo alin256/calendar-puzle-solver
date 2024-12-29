@@ -1,20 +1,23 @@
 import numpy as np
 
-def encode_nd_array_to_int64(arr_in):
-    arr = np.full((8, 8), True, dtype=bool)
+def encode_nd_array_to_int64(arr_in, extend_with=True):
+    arr = np.full((8, 8), extend_with, dtype=bool)
     shape = arr_in.shape
     arr[:shape[0], :shape[1]] = arr_in
     return int(''.join([str(int(x)) for x in arr.flatten()]), 2)
 
-def decode_from_int64(num, num_rows=8, num_cols=8):
+def decode_from_int64(num, num_rows=8, num_cols=8, verbose=False):
     # todo stop assuming fixed size grid
     bin_str = bin(num)[2:]
-    print(bin_str)
+    if verbose:
+        print(bin_str)
     bin_str = '0' * (num_rows * num_cols - len(bin_str)) + bin_str
-    print(bin_str)
+    if verbose:
+        print(bin_str)
     flat_array = np.array([int(x) for x in bin_str], dtype=bool)
-    print(flat_array)
-    print(flat_array.shape)
+    if verbose:
+        print(flat_array)
+        print(flat_array.shape)
     grid = flat_array.reshape(num_rows, num_cols)
     return grid
 

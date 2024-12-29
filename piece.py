@@ -20,7 +20,7 @@ class GeometricPiece:
                 print(ind)
                 utils.print_field(rotation)
                 print()
-            id = utils.encode_nd_array_to_int64(rotation)
+            id = utils.encode_nd_array_to_int64(rotation, False)
             self.rotations[id] = rotation
             rotation = utils.rotate(rotation)
             ind += 1
@@ -31,7 +31,7 @@ class GeometricPiece:
                 print(ind)
                 utils.print_field(rotation)
                 print()
-            id = utils.encode_nd_array_to_int64(rotation)
+            id = utils.encode_nd_array_to_int64(rotation, False)
             self.rotations[id] = rotation
             rotation = utils.rotate(rotation)
             ind += 1
@@ -49,12 +49,12 @@ class GeometricPiece:
                     if verbose:
                         print(f'Rotation {k} at ({i}, {j})')
                         utils.print_field(result)
-                    self.rot_row_col_list[k][i].append(utils.encode_nd_array_to_int64(result))
+                    self.rot_row_col_list[k][i].append(utils.encode_nd_array_to_int64(result, False))
     
     def __str__(self):
         return utils.field_to_str(self.arr)
 
-def return_all_pieces_default():
+def return_all_pieces_default(verbose=False):
     pieces = []
     #generate rotations of L-shaped piece 3x3
     piece = GeometricPiece([[True, False, False],
@@ -88,16 +88,17 @@ def return_all_pieces_default():
     piece = GeometricPiece([[True, False],
                             [True, True],
                             [True, True]])
-        #generate rectangle piece 3x2
+    pieces.append(piece)
+    #generate rectangle piece 3x2
     piece = GeometricPiece([[True, True],
                             [True, True],
                             [True, True]])
     pieces.append(piece)
-    pieces.append(piece)
-    for i, piece in enumerate(pieces):
-        print(f'Piece {i+1}')
-        print(piece)
-        print()
+    if verbose:
+        for i, piece in enumerate(pieces):
+            print(f'Piece {i+1}')
+            print(piece)
+            print()
     return pieces
 
 if __name__ == '__main__':
