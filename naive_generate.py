@@ -4,7 +4,7 @@ import time
 import utils
 import piece
 
-def naive_recursion(field_id, remaining_pieces, depth=0, verbose=False):
+def naive_recursion(field_id, remaining_pieces, depth=0, verbose=False, used_set=None):
     if verbose:
         print(f'Depth: {depth}')
         field = utils.decode_from_int64(field_id)
@@ -13,6 +13,11 @@ def naive_recursion(field_id, remaining_pieces, depth=0, verbose=False):
     if len(remaining_pieces) == 0:
         char_array = np.full((8, 8), '.', dtype=str)
         return char_array
+    if used_set is not None:
+        if field_id in used_set:
+            return None
+        used_set.add(field_id)
+        
 
     piece = remaining_pieces[0]
     remaining_pieces = remaining_pieces[1:]
@@ -25,7 +30,10 @@ def naive_recursion(field_id, remaining_pieces, depth=0, verbose=False):
                 # print(f'j: {j}')
                 if utils.check_add(field_id, piece_id):
                     new_field_id = utils.bitwise_add(field_id, piece_id)
-                    recursion_reult = naive_recursion(new_field_id, remaining_pieces, depth=depth+1, verbose=verbose)
+                    recursion_reult = naive_recursion(new_field_id, remaining_pieces, 
+                                                      depth=depth+1, 
+                                                      verbose=verbose,
+                                                      used_set=used_set)
                     if recursion_reult is not None:
                         bool_array = utils.decode_from_int64(piece_id)
                         # convert to array of chars using the id_char of the piece
@@ -34,36 +42,51 @@ def naive_recursion(field_id, remaining_pieces, depth=0, verbose=False):
                         return char_array
     return None
 
-
-if __name__ == '__main__':
+def generate_date_field(month_number, day_number):
     field_np = np.full((7, 7), False, dtype=bool)
     field_np[0:2, -1] = True
     field_np[-1, -4:7] = True
 
-    field_np[1, 5] = True
-    field_np[6, 0] = True
+    month_line = (month_number - 1) // 6
+    month_pos  = (month_number - 1) % 6
 
+    day_line = (day_number - 1) // 7 + 2
+    day_pos = (day_number - 1) % 7 
+
+    field_np[month_line, month_pos] = True
+    field_np[day_line, day_pos] = True
+
+    return field_np
+
+if __name__ == '__main__':
+    
+    field_np = generate_date_field(11, 8)
+
+    print('\n\nChecking field\n')
     utils.print_field(field_np)
 
     field_id = utils.encode_nd_array_to_int64(field_np)
 
     start_time = time.time()
 
-    print('\n\ngenerating pieces\n\n')
+    # print('\n\ngenerating pieces\n\n')
 
     pieces = piece.return_all_pieces_default(verbose=False)
-    print(f'Pre-compute time time: {time.time() - start_time}')
+    # print(f'Pre-compute time time: {time.time() - start_time}')
 
     start_time = time.time()
 
-    print('\n\nstarting recursion\n\n')
+    used_set = None
 
-    result = naive_recursion(field_id, pieces, verbose=False)
+    result = naive_recursion(field_id, pieces, verbose=False, used_set=used_set)
     # convert 2d array from numpy to a single string with line breaks
     result = '\n'.join([''.join(row) for row in result])
 
     print(f'Recursion time: {time.time() - start_time}')
+    if used_set is not None:
+        print(f"Used set size: {len(used_set)}")
 
+    print('\n\nResulting grid\n')
     print(result)
 
 

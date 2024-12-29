@@ -67,19 +67,19 @@ def return_all_pieces_default(verbose=False):
                             [False, True, False],
                             [False, True, True]], id_char='Z')
     pieces.append(piece)
-    #generate rotations of L-shaped piece 4x2
+    #generate rotations of J-shaped piece 4x2
     piece = GeometricPiece([[True, False],
                             [True, False],
                             [True, False],
-                            [True, True]], id_char='L')
+                            [True, True]], id_char='J')
     pieces.append(piece)
     #generate rotations of T-shaped piece 2x4   
     piece = GeometricPiece([[True, True, True, True],
                             [False, True, False, False]], id_char='T')
     pieces.append(piece)
-    #generate rotations of J-shaped piece 2x4
+    #generate rotations of Q-shaped piece 2x4
     piece = GeometricPiece([[True, True, False, False],
-                            [False, True, True, True]], id_char='J')
+                            [False, True, True, True]], id_char='Q')
     pieces.append(piece)
     #generate rotations of C-shaped piece 2x3
     piece = GeometricPiece([[True, True, True],
