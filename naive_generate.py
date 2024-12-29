@@ -59,6 +59,10 @@ def generate_date_field(month_number, day_number):
 
     return field_np
 
+def readable_result(result):
+    # convert 2d array from numpy to a single string with line breaks
+    return '\n'.join([''.join(row) for row in result])
+
 if __name__ == '__main__':
     start_time_year = time.time()
 
@@ -77,8 +81,7 @@ if __name__ == '__main__':
 
             result = naive_recursion(field_id, pieces, verbose=False, used_set=used_set)
             
-            # convert 2d array from numpy to a single string with line breaks
-            result = '\n'.join([''.join(row) for row in result])
+            result = readable_result(result)
 
             # print('\n\nChecking field\n')
             # print the text {Month} {day}
