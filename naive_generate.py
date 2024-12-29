@@ -3,6 +3,7 @@ import time
 
 import utils
 import piece
+import calendar
 
 def naive_recursion(field_id, remaining_pieces, depth=0, verbose=False, used_set=None):
     if verbose:
@@ -59,34 +60,40 @@ def generate_date_field(month_number, day_number):
     return field_np
 
 if __name__ == '__main__':
-    
-    field_np = generate_date_field(11, 8)
+    start_time_year = time.time()
 
-    print('\n\nChecking field\n')
-    utils.print_field(field_np)
-
-    field_id = utils.encode_nd_array_to_int64(field_np)
-
-    start_time = time.time()
-
-    # print('\n\ngenerating pieces\n\n')
-
+    #pre-generating pieces bit-masks
     pieces = piece.return_all_pieces_default(verbose=False)
-    # print(f'Pre-compute time time: {time.time() - start_time}')
 
-    start_time = time.time()
+    # iterate calendart days in 2024
+    for month in range(1, 13):
+        for day in range(1, calendar.monthrange(2024, month)[1] + 1):
+            field_np = generate_date_field(month, day)
+            field_id = utils.encode_nd_array_to_int64(field_np)
+            
+            start_time = time.time()
 
-    used_set = None
+            used_set = None
 
-    result = naive_recursion(field_id, pieces, verbose=False, used_set=used_set)
-    # convert 2d array from numpy to a single string with line breaks
-    result = '\n'.join([''.join(row) for row in result])
+            result = naive_recursion(field_id, pieces, verbose=False, used_set=used_set)
+            
+            # convert 2d array from numpy to a single string with line breaks
+            result = '\n'.join([''.join(row) for row in result])
 
-    print(f'Recursion time: {time.time() - start_time}')
-    if used_set is not None:
-        print(f"Used set size: {len(used_set)}")
+            # print('\n\nChecking field\n')
+            # print the text {Month} {day}
+            print(f'{calendar.month_name[month]} {day}\n')
+            utils.print_field(field_np)
+            
+            if used_set is not None:
+                print(f"Used set size: {len(used_set)}")
 
-    print('\n\nResulting grid\n')
-    print(result)
+            
+            print(f'\nAnswer for {calendar.month_name[month]} {day}\n')
+            print(result)
+            print(f'\nRecursion time: {time.time() - start_time}')
+
+    # print total time
+    print(f'Total time: {time.time() - start_time_year}')
 
 
