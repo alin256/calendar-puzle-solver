@@ -3,10 +3,11 @@ import numpy as np
 import utils
 
 class GeometricPiece:
-    def __init__(self, arr, field_max_rows=7, field_max_cols=7):
+    def __init__(self, arr, id_char='#', field_max_rows=7, field_max_cols=7):
         self.rows = len(arr)
         self.cols = len(arr[0])
         self.arr = np.array(arr)
+        self.id_char = id_char
         self.rotations = {}
         self._generate_rotations()
         self.rot_row_col_list = []
@@ -59,40 +60,40 @@ def return_all_pieces_default(verbose=False):
     #generate rotations of L-shaped piece 3x3
     piece = GeometricPiece([[True, False, False],
                             [True, False, False],
-                            [True, True,  True]])
+                            [True, True,  True]], id_char='L')
     pieces.append(piece)
     #generate rotations of Z-shaped piece 3x3
     piece = GeometricPiece([[True,  True, False],
                             [False, True, False],
-                            [False, True, True]])
+                            [False, True, True]], id_char='Z')
     pieces.append(piece)
     #generate rotations of L-shaped piece 4x2
     piece = GeometricPiece([[True, False],
                             [True, False],
                             [True, False],
-                            [True, True]])
+                            [True, True]], id_char='L')
     pieces.append(piece)
     #generate rotations of T-shaped piece 2x4   
     piece = GeometricPiece([[True, True, True, True],
-                            [False, True, False, False]])
+                            [False, True, False, False]], id_char='T')
     pieces.append(piece)
-    #generate rotations of Z-shaped piece 2x4
+    #generate rotations of J-shaped piece 2x4
     piece = GeometricPiece([[True, True, False, False],
-                            [False, True, True, True]])
+                            [False, True, True, True]], id_char='J')
     pieces.append(piece)
-    #generate rotations of Pi-shaped piece 2x3
+    #generate rotations of C-shaped piece 2x3
     piece = GeometricPiece([[True, True, True],
-                            [True, False, True]])
+                            [True, False, True]], id_char='C')
     pieces.append(piece)
     #generate rotations of boot-shaped piece 3x2
     piece = GeometricPiece([[True, False],
                             [True, True],
-                            [True, True]])
+                            [True, True]], id_char='B')
     pieces.append(piece)
-    #generate rectangle piece 3x2
+    #generate rectangle O-shaped piece 3x2
     piece = GeometricPiece([[True, True],
                             [True, True],
-                            [True, True]])
+                            [True, True]], id_char='O')
     pieces.append(piece)
     if verbose:
         for i, piece in enumerate(pieces):
