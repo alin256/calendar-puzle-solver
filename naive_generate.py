@@ -91,6 +91,11 @@ if __name__ == '__main__':
             
             print(f'\nAnswer for {calendar.month_name[month]} {day}\n')
             print(result)
+
+            with open('results.txt', 'a') as f:
+                f.write(f'Answer for {calendar.month_name[month]} {day}\n')
+                f.write(result)
+                f.write('\n\n')
             print(f'\nRecursion time: {time.time() - start_time}')
 
     # print total time
