@@ -34,5 +34,5 @@ Here is the list of **A-Puzzle-A-Day** original puzzles (not an affiliate link, 
  - https://www.dragonfjord.com/product/apad-legendary-boxed/
 
 ## Special thanks
-Special thanks to Polina for brainstorming the solution ideas. 
+Special thanks to Polina for brainstorming the solution ideas and to [Anna](https://github.com/kvashchuka) for showing me this cool puzzle. 
    
