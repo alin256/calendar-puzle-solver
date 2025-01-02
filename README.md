@@ -33,6 +33,11 @@ Here is the list of **A-Puzzle-A-Day** original puzzles (not an affiliate link, 
  - https://www.dragonfjord.com/product/a-puzzle-a-day-deluxe/
  - https://www.dragonfjord.com/product/apad-legendary-boxed/
 
+## Alternative solutions
+After finishing this readme I discovered **a lot** of [alternative solutions](https://github.com/search?q=A-Puzzle-A-Day&type=repositories).
+
+If you want to do a comparison benchmark, I will gladly accept a PR with results. 
+
 ## Special thanks
 Special thanks to Polina for brainstorming the solution ideas and to [Anna](https://github.com/kvashchuka) for showing me this cool puzzle. 
    
