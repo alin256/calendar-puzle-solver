@@ -2,6 +2,7 @@ import naive_generate
 import piece
 import utils
 import sys
+import time
 import calendar
 
 # take two command line arguments and generate the answer
@@ -15,6 +16,8 @@ if __name__ == '__main__':
         month_number = int(sys.argv[1])
         day_number = int(sys.argv[2])
     
+    start_time = time.time()
+
     print(f'\nAnswer for {calendar.month_name[month_number]} {day_number}\n')
 
     field = naive_generate.generate_date_field(month_number, day_number)
@@ -24,4 +27,6 @@ if __name__ == '__main__':
                                             verbose=False)
     readable_result = naive_generate.readable_result(result)
     print(readable_result)    
+
+    print(f'\nTotal time: {time.time() - start_time}')    
 
