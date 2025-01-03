@@ -59,6 +59,13 @@ def generate_date_field(month_number, day_number):
 
     return field_np
 
+def generate_city_field(x_post, y_post):
+    field_np = np.full((7, 7), False, dtype=bool)
+
+    field_np[y_post, x_post] = True
+
+    return field_np
+
 def readable_result(result):
     # convert 2d array from numpy to a single string with line breaks
     return '\n'.join([''.join(row) for row in result])
@@ -67,7 +74,7 @@ if __name__ == '__main__':
     start_time_year = time.time()
 
     #pre-generating pieces bit-masks
-    pieces = piece.return_all_pieces_default(verbose=False)
+    pieces = piece.return_all_calendar_pieces_default(verbose=False)
 
     # iterate calendart days in 2024
     for month in range(1, 13):

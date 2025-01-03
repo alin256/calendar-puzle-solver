@@ -3,17 +3,19 @@ import numpy as np
 import utils
 
 class GeometricPiece:
-    def __init__(self, arr, id_char='#', field_max_rows=7, field_max_cols=7):
+    def __init__(self, arr, id_char='#', field_max_rows=7, field_max_cols=7, allow_flip=True, verbose=False):
         self.rows = len(arr)
         self.cols = len(arr[0])
         self.arr = np.array(arr)
         self.id_char = id_char
+        if verbose:
+            print(f'Processing piece {id_char}')
         self.rotations = {}
-        self._generate_rotations()
+        self._generate_rotations(verbose=verbose, allow_flip=allow_flip)
         self.rot_row_col_list = []
         self._generate_row_col_rotations(field_max_rows, field_max_cols)
 
-    def _generate_rotations(self, verbose=False):
+    def _generate_rotations(self, verbose=False, allow_flip=True):
         ind = 0
         rotation = self.arr.copy()
         for i in range(4):
@@ -25,17 +27,18 @@ class GeometricPiece:
             self.rotations[id] = rotation
             rotation = utils.rotate(rotation)
             ind += 1
-        
-        rotation = utils.flip(rotation)
-        for i in range(4):
-            if verbose:
-                print(ind)
-                utils.print_field(rotation)
-                print()
-            id = utils.encode_nd_array_to_int64(rotation, False)
-            self.rotations[id] = rotation
-            rotation = utils.rotate(rotation)
-            ind += 1
+
+        if allow_flip:
+            rotation = utils.flip(rotation)
+            for i in range(4):
+                if verbose:
+                    print(ind)
+                    utils.print_field(rotation)
+                    print()
+                id = utils.encode_nd_array_to_int64(rotation, False)
+                self.rotations[id] = rotation
+                rotation = utils.rotate(rotation)
+                ind += 1
         if verbose:
             print(f'Total rotations: {len(self.rotations)}\n')
 
@@ -54,8 +57,69 @@ class GeometricPiece:
     
     def __str__(self):
         return utils.field_to_str(self.arr)
+    
+def return_all_city_pieces_default(verbose=False):
+    pieces = []
+    # generate cornrner piece 3x3
+    piece = GeometricPiece([[True, False, False],
+                            [True, True, False],
+                            [True, True,  True]], id_char='A', allow_flip=False)
+    pieces.append(piece)
+    # generate I-shaped piece 5x1
+    piece = GeometricPiece([[True],
+                            [True],
+                            [True],
+                            [True],
+                            [True]], id_char='I',allow_flip=False)
+    pieces.append(piece)
+    # generate !-shaped piece 1x2
+    piece = GeometricPiece([[True, True]], id_char='!', allow_flip=False)
+    pieces.append(piece)
+    # generate M-shaped piece 3x3
+    piece = GeometricPiece([[True, False, False],
+                            [True, True,  False],
+                            [False, True, True]], id_char='M', allow_flip=False)
+    pieces.append(piece)
+    # generate T-shaped piece 4x2
+    piece = GeometricPiece([[True, False],
+                            [True, True],
+                            [True, True],
+                            [True, False]], id_char='T',
+                            allow_flip=False)
+    pieces.append(piece)
+    #generate Q-shaped piece 4x3
+    piece = GeometricPiece([[False, True, False],
+                            [True, True, True],
+                            [True, True, True],
+                            [True, False, False]], 
+                            id_char='Q',
+                            allow_flip=False,
+                            verbose=True)
+    pieces.append(piece)
+    #generate P-shaped piece 4x2
+    piece = GeometricPiece([[True, False],
+                            [True, True],
+                            [True, False],
+                            [True, False]], id_char='P',
+                            allow_flip=False)
+    pieces.append(piece)
+    #generate Y-shaped piece 3x2
+    piece = GeometricPiece([[True, False],
+                            [True, True],
+                            [True, False]], 
+                            id_char='Y',
+                            allow_flip=False)
+    pieces.append(piece)
+    # generate E-shaped piece 3x3
+    piece = GeometricPiece([[True, True, False],
+                            [True, True, True],
+                            [True, True, False]], 
+                            id_char='E',
+                            allow_flip=False)
+    pieces.append(piece)
+    return pieces
 
-def return_all_pieces_default(verbose=False):
+def return_all_calendar_pieces_default(verbose=False):
     pieces = []
     #generate rotations of L-shaped piece 3x3
     piece = GeometricPiece([[True, False, False],
@@ -103,7 +167,7 @@ def return_all_pieces_default(verbose=False):
     return pieces
 
 if __name__ == '__main__':
-    pieces = return_all_pieces_default()
+    pieces = return_all_calendar_pieces_default()
     exit(0)
 
     piece = GeometricPiece([[True, False], 
