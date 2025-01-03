@@ -94,7 +94,7 @@ def return_all_city_pieces_default(verbose=False):
                             [True, False, False]], 
                             id_char='Q',
                             allow_flip=False,
-                            verbose=True)
+                            verbose=False)
     pieces.append(piece)
     #generate P-shaped piece 4x2
     piece = GeometricPiece([[True, False],
