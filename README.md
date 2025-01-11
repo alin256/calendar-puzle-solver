@@ -26,6 +26,14 @@ CCQQQJJ.
 ........
 ```
 
+## Generalization
+
+The code generalizes to any shape-based puzzles on grids of 8x8 or smaler.
+
+### City puzzle
+
+The script for solving a city puzzle is a demostration of such an adaptation. 
+
 ## Where can I get this puzzle?
 Here is the list of **A-Puzzle-A-Day** original puzzles (not an affiliate link, they are just good):
  - https://www.dragonfjord.com/product/a-puzzle-a-day-acrylic/
