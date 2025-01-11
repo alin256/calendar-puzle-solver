@@ -32,7 +32,17 @@ The code generalizes to any shape-based puzzles on grids of 8x8 or smaler.
 
 ### City puzzle
 
-The script for solving a city puzzle is a demostration of such an adaptation. 
+[City puzzle](https://www.creativecrafthouse.com/city-planner-can-you-build-the-city-block.html) is a puzzle where you need to put city blocks of pre-defined shapes into a grid. A chosen grid cell is occupied by a light post.
+Here the city blocks have the roofs and cannot be flipped.
+
+*If [this link](https://www.creativecrafthouse.com/city-planner-can-you-build-the-city-block.html) is not pointing to the produser of the original puzzle, please suggest a correction.*
+
+The script for solving a city puzzle `generate_single_city.py` is a demostration of such an adaptation. 
+
+To find solution use the 0-indexed coordinates of the lightpost as inputs:
+```
+python generate_single.py 0 0
+```
 
 ## Where can I get this puzzle?
 Here is the list of **A-Puzzle-A-Day** original puzzles (not an affiliate link, they are just good):
